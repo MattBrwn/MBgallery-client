@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+README File
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Project Name
+MBgallery
 
-In the project directory, you can run:
+## Description
 
-### `yarn start`
+Photographers Page with purchase option.
+ 
+## User Stories
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault. 
+**500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault.
+**homepage** - (Link-Button -> Portfolio/Album)   
+**Navbar** for user (Log-In, Sign-up, Log-Out, Edit/Delete; Albums)
+**Footer** for impressum and copyright
+**signup** - Sign up Form (-> Album)
+**login** - Log-in Form(with Link-Button -> Sign up).
+**user** (edit (onSubmit-Button for update)/onClick for delete)
+**Album** - Album(all images) with dropdown for filter (genre) (->ImageDetail).
+**ImageDetail** (onClick-Button for buy -> purchase overview)
+**upload**-  picture upload with cloudinary ( -> Album)
+**purchase**- list of images to buy (Link-Button -> Album) 
+**purchase overview**- list all purchases (Link-Button -> Album) 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+## Backlog
+pay by stripe
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## ROUTES:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Server-side
+auth.routes.jsx
+router.post('/signup')
+router.post('/signin')
+router.post('/logout')
+router.post('/delete')
+router.get('/user')
+router.get('/albums')
+router.get('/image/{image_id}')
+router.post('/image/')
+router.post(purchase)/purchase/{image_id}
+router.get(purchase)/purchase/{buyer_id}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Client-side
+	Sites:
+1. Home (‘/‘)
+2. Signup (‘/signup ‘)
+3. Signin (‘/signin ‘)
+5. Album/filtered (dropdown) (‘/album’)
+6. Imagedetail (w option for edit/change, delete and buy)  (‘/{image_id} ‘); 
+    conditional rendering for LoggedInUser
+7. Uploadform (cloudinary)  (‘/upload ‘); conditional rendering for LoggedUser
+8. purchase  (‘/purchase ‘); conditional rendering for LoggedInUser
+9. purchase overview  (‘/purchase ‘);  conditional rendering for LoggedInUser
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Server-Side
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Components 
+MyNav.jsx
+MyFooter.jsx
+UploadForm.jsx
+Pages
+LogIn.jsx
+SignUp.jsx
+User.jsx
+MyAlbum.jsx
+ImageDetail.jsx
+MyPurchase.jsx
+AllPurchases.jsx
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Models
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+User-Model
+Image-Model
+Purchase-Model
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Kanban-Board
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### Git
+The url to your repository and to your deployed project
+[Repository Link]
+(Server: https://github.com/MattBrwn/MBgallery-server)
+(Client: https://github.com/MattBrwn/MBgallery-client)
+[Deploy Link](https://)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Slides
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The url to your presentation slides
+[Slides Link]()
+[wireframes] (https://docs.google.com/drawings/d/1ZySTqDrEnofdon66RXx0IXs5A9igZ0Y0i4nuchIRRd4/edit?usp=sharing)

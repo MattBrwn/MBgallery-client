@@ -1,6 +1,7 @@
 import React from 'react';
 
 function LogIn(props){
+    console.log('RENDERED LOGIN')
     return (
         <form onSubmit={props.onLogIn}>
             <div className="form-group">

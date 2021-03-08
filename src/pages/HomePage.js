@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import MyAlbum from "./MyAlbum";
+import { Link } from "react-router-dom"
+
+// import MyAlbum from "./MyAlbum";
 
 
  class HomePage extends Component {
@@ -8,8 +9,8 @@ import MyAlbum from "./MyAlbum";
     return (
       <div> 
         <h1>M.B. | Gallery</h1>
-        <h5>Welcome on my Homepage!</h5>
-        <MyAlbum />
+        <h5>Welcome here!</h5>
+        <Link to={`/album`}><h2>My Portfolio</h2></Link>
       </div>
     )
   }

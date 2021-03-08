@@ -17,17 +17,17 @@ import AddForm from "./components/AddForm";
 
 class App extends Component {
   state = {
-    album: [],
+    images: [],
     loggedInUser: null,
     error: null,
   }
 
   // Get initial data
   componentDidMount(){
-    axios.get(`${config.API_URL}/api/album`)
+    axios.get(`${config.API_URL}/api/album`, {withCredentials:true})
       .then((response) => {
         console.log(response.data)
-        this.setState({ album: response.data})
+        this.setState({ images: response.data})
       })
       .catch(() => {
         console.log('Fetching failed')
@@ -104,8 +104,32 @@ class App extends Component {
 
  }
 
+ handleDelete = (imageId) => {
+
+  //1. Make an API call to the server side Route to delete that specific todo
+    axios.delete(`${config.API_URL}/api/album/${imageId}`)
+      .then(() => {
+         // 2. Once the server has successfully created a new todo, update your state that is visible to the user
+          let filteredImages = this.state.images.filter((image) => {
+            return image._id !== imageId
+          })
+
+          this.setState({
+            images: filteredImages
+          }, () => {
+            this.props.history.push('/album')
+          })
+      })
+      .catch((err) => {
+        console.log('Delete failed', err)
+      })
+
+ }
+
+
+
  handleEditImage = (image) => {
-  axios.patch(`${config.API_URL}/api/album/${image._id}`, {
+  axios.patch(`${config.API_URL}/api/album/${imageId}`, {
     title: image.title,
     genre: image.genre,
     description: image.description,
@@ -113,13 +137,12 @@ class App extends Component {
     price: image.price,
   })
     .then(() => {
-        let newAlbum = this.state.album.map((singleImage) => {
-            if (image._id === singleImage._id) {
-              singleImage.title  = image.name
+        let newAlbum = this.state.images.map((singleImage) => {
+            if (imageId === singleImage._id) {
+              singleImage.title  = image.title
               singleImage.description = image.description
               singleImage.genre = image.genre
               singleImage.price = image.price
-              singleImage.imageUrl = image.ImageUrl
             }
             return singleImage
         })
@@ -144,7 +167,7 @@ class App extends Component {
     let genre = event.target.genre.value
     let description = event.target.description.value
     let price = event.target.price.value
-    // let imageUrl = event.target.imageUrl.files[0]
+    let image = event.target.imageUrl.files[0]
   
   let uploadForm = new FormData()
   uploadForm.append('imageUrl', image)
@@ -163,7 +186,7 @@ class App extends Component {
             .then((response) => {
                 // 2. Once the server has successfully created a new image, update your state that is visible to the user
                 this.setState({
-                  album: [response.data, ...this.state.album]
+                  image: [response.data, ...this.state.image]
                 }, () => {
                   //3. Once the state is update, redirect the user to the album page
                   this.props.history.push('/album')
@@ -188,20 +211,29 @@ class App extends Component {
       <div>
         <MyNav onLogout={this.handleLogout} user={this.state.loggedInUser}/>
         <Switch>
-        <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/signup"  render={(routeProps) => {
                 return  <SignUp onSignUp={this.handleSignUp} {...routeProps}  />
-          }}/>
+          }}
+          />
           <Route path="/login"  render={(routeProps) => {
                 return  <LogIn onLogIn={this.handleLogIn} {...routeProps}  />
-          }}/>
-          <Route exact path="/album" render={(props) => {
-                return  <MyAlbum album={this.state.album}/>
-          }} />
-          <Route path="/add-form" render={() => {
-                return <AddForm onAdd={this.handleSubmit} />
-          }} />
-          <Route exact path="/imagedetail/:id" component={ImageDetail} />
+          }}
+          />
+          <Route exact path="/album" render={(routeProps) => {
+                return  <MyAlbum  images={this.state.images}  {...routeProps}/>
+          }} 
+          />
+          <Route path="/add-form" render={(routeProps) => {
+                return <AddForm onAdd={this.handleSubmit}  {...routeProps}/>
+          }} 
+          />
+          <Route  path="/album/:imageId" render={(routeProps) => {
+                return <ImageDetail onDelete={this.handleDelete}  {...routeProps}/>
+            }} />
+           <Route  path="/album/:imageId/edit" render={(routeProps) => {
+                return <EditForm onEdit={this.handleEditImage} onDelete={this.handleDelete} {...routeProps}/>
+            }} />
         </Switch>
         <MyFooter />
       </div>

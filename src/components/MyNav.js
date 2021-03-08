@@ -8,7 +8,7 @@ function MyNav(props) {
       <Navbar.Toggle  aria-controls="basic-navbar-nav"  />
       <Navbar.Collapse  id="basic-navbar-nav">
         <Nav  className="mr-auto">
-          <Link  to="/album">Album</Link>
+          <Link  to="/album">Portfolio</Link>
           <Link  to="/add-form">Image upload</Link>
           {
             props.user ? (

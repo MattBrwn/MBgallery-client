@@ -3,14 +3,14 @@ import { Link } from "react-router-dom"
 
 function MyAlbum(props) {
 
-  // console.log("props in AllBeers component: ", props);
+  // console.log("props in MyAlbum component: ", props);
 
   const showAlbum = () => {
-    return props.album.map(image => {
+    return props.images.map(image => {
       return (
         <div key={image._id}>
-          <img style={{ width: '300px' }} src={image.imageUrl} alt='this image' />
-          <h3>{image.title}</h3>
+          <img style={{ width: '300px' }} src={image.imageUrl} alt='this image' /> 
+          <Link to={`/album/${image._id}`}><h2>{image.title}</h2></Link>
         </div>
       );
     });
