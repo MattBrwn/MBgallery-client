@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom"
+import {Spinner} from 'react-bootstrap'
 
 function MyAlbum(props) {
 
-  // console.log("props in MyAlbum component: ", props);
-
   const showAlbum = () => {
+  
     return props.images.map(image => {
       return (
         <div key={image._id}>

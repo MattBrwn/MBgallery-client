@@ -9,6 +9,9 @@ import {Link, Redirect} from 'react-router-dom'
     image: {}
   }
 
+
+  
+
   componentDidMount(){
     console.log(this.props) 
  
@@ -24,6 +27,7 @@ import {Link, Redirect} from 'react-router-dom'
 
   render() {
     const {image} = this.state
+    const{onDelete, handleBuy, user}= this.props
     console.log(this.props)
 
     return (
@@ -34,11 +38,14 @@ import {Link, Redirect} from 'react-router-dom'
         </div>
         <div>Description: <br/>
           <p>{image.description}</p></div>
+          <div>Genre:<p>{image.genre}</p></div>
+          <div>Price:<p>{image.price} €</p></div>
         <div>
           <Link to={`/album/${image._id}/edit`}>
             <button>Edit</button>
           </Link>
-        <button onClick={() => { onDelete(imageId)  } } >Delete</button>
+        <button onClick={() => { onDelete(image._id)  } } >Delete</button>
+        <button onClick={() => { handleBuy(image._id, image.price)  } } >Buy this picture</button>
         </div>  
       </div>
     )

@@ -11,6 +11,12 @@ import HomePage from "./pages/HomePage";
 import MyAlbum from "./pages/MyAlbum";
 import ImageDetail from "./components/ImageDetail";
 import AddForm from "./components/AddForm";
+import EditForm from "./components/EditForm";
+import MyPurchase from "./pages/MyPurchase";
+// import AllPurchases from "./pages/AllPurchases";
+// import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import CheckoutForm from "./components/CheckoutForm";
 
 
 // import MyNav from "./components/MyNav";
@@ -26,7 +32,7 @@ class App extends Component {
   componentDidMount(){
     axios.get(`${config.API_URL}/api/album`, {withCredentials:true})
       .then((response) => {
-        console.log(response.data)
+        console.log("response from API", response.data)
         this.setState({ images: response.data})
       })
       .catch(() => {
@@ -55,7 +61,7 @@ class App extends Component {
       password: event.target.password.value
     } 
 
-    axios.post(`${config.API_URL}/api/signup`, user)
+    axios.post(`${config.API_URL}/api/signup`, user, {withCredentials: true})
       .then((response) => {
           this.setState({
             loggedInUser: response.data
@@ -104,18 +110,61 @@ class App extends Component {
 
  }
 
+ handlePurchase = () => {
+  axios.get(`${config.API_URL}/api/purchase`, {}, {withCredentials: true})
+  const {images, loggedInUser, error} = this.state
+   .then(() => {
+      this.setState({
+        loggedInUser: null
+      }, () => {
+        this.props.history.push('/')
+      })
+  })
+
+ }
+ 
+ 
+ 
+ 
+ 
+ handleBuy = (purchase, price) => {
+    console.log(purchase)
+        //1. Make an API call to the server side Route to create a purchase
+      axios.post(`${config.API_URL}/api/purchase`, {
+          image_id: purchase,
+          totalprice: price,
+          date : new Date()
+
+        },
+        {withCredentials: true}
+        )
+        .then((response) => {
+            // 2. Once the server has successfully created a new image, update your state that is visible to the user
+            this.setState({
+              
+            }, () => {
+              //3. Once the state is update, redirect the user to the album page
+              this.props.history.push('/album')
+            })
+       })
+        .catch((err) => {
+          console.log('Create purchase failed', err)
+        })
+ }
+
  handleDelete = (imageId) => {
 
-  //1. Make an API call to the server side Route to delete that specific todo
-    axios.delete(`${config.API_URL}/api/album/${imageId}`)
+  //1. Make an API call to the server side Route to delete that specific image
+    axios.delete(`${config.API_URL}/api/album/${imageId}`, {}, {withCredentials: true})
+    // console.log(image._id)
       .then(() => {
-         // 2. Once the server has successfully created a new todo, update your state that is visible to the user
-          let filteredImages = this.state.images.filter((image) => {
+         // 2. Once the server has successfully created a new image, update your state that is visible to the user
+          let filteredImages = this.state.image.filter((image) => {
             return image._id !== imageId
           })
 
           this.setState({
-            images: filteredImages
+            image: filteredImages
           }, () => {
             this.props.history.push('/album')
           })
@@ -126,19 +175,18 @@ class App extends Component {
 
  }
 
-
-
  handleEditImage = (image) => {
-  axios.patch(`${config.API_URL}/api/album/${imageId}`, {
+   console.log(image)
+  axios.patch(`${config.API_URL}/api/album/${image._id}`, {
     title: image.title,
     genre: image.genre,
     description: image.description,
     imageUrl: image.imageUrl,
     price: image.price,
-  })
+  }, {withCredentials: true})
     .then(() => {
         let newAlbum = this.state.images.map((singleImage) => {
-            if (imageId === singleImage._id) {
+            if (image._id === singleImage._id) {
               singleImage.title  = image.title
               singleImage.description = image.description
               singleImage.genre = image.genre
@@ -149,7 +197,7 @@ class App extends Component {
         this.setState({
           Album: newAlbum
         }, () => {
-          this.props.history.push('/')
+          this.props.history.push(`/album/${image._id}`)
         })
 
         
@@ -158,8 +206,7 @@ class App extends Component {
       console.log('Edit failed', err)
     })
 
-}
-
+  }
 
  handleSubmit = (event) => {
   event.preventDefault()
@@ -173,7 +220,7 @@ class App extends Component {
   uploadForm.append('imageUrl', image)
 
     // send image to cloudinary
-    axios.post(`${config.API_URL}/api/upload`, uploadForm)
+    axios.post(`${config.API_URL}/api/upload`, uploadForm, {withCredentials: true})
       .then((response) => {
             //1. Make an API call to the server side Route to create a new image
           axios.post(`${config.API_URL}/api/create`, {
@@ -202,14 +249,15 @@ class App extends Component {
       })
     
   }
- 
-
-
 
   render(){
+   
     return (
       <div>
         <MyNav onLogout={this.handleLogout} user={this.state.loggedInUser}/>
+        {/* <AllPurchases stripe={promise}>
+          {/* <CheckoutForm /> 
+        </AllPurchases> */}
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/signup"  render={(routeProps) => {
@@ -228,11 +276,14 @@ class App extends Component {
                 return <AddForm onAdd={this.handleSubmit}  {...routeProps}/>
           }} 
           />
-          <Route  path="/album/:imageId" render={(routeProps) => {
-                return <ImageDetail onDelete={this.handleDelete}  {...routeProps}/>
+          <Route  exact path="/album/:imageId" render={(routeProps) => {
+                return <ImageDetail onDelete={this.handleDelete}  handleBuy={this.handleBuy} {...routeProps}/>
             }} />
-           <Route  path="/album/:imageId/edit" render={(routeProps) => {
+           <Route exact path="/album/:imageId/edit" render={(routeProps) => {
                 return <EditForm onEdit={this.handleEditImage} onDelete={this.handleDelete} {...routeProps}/>
+            }} />
+            <Route exact path="/purchase" render={(routeProps) => {
+                return <MyPurchase onPurchase={this.handlePurchase}/>
             }} />
         </Switch>
         <MyFooter />
@@ -242,3 +293,6 @@ class App extends Component {
 }
 
 export default withRouter(App);
+
+
+

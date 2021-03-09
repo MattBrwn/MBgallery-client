@@ -48,9 +48,12 @@ export default class EditForm extends Component {
     const {onEdit} = this.props
     return (
       <div>
-          <input type="text" onChange={this.handleNameChange} value={image.title}/>
-          <input type="text" onChange={this.handleDescChange} value={image.description}/>
+          <h5>Title</h5><input type="text" onChange={this.handleNameChange} value={image.title}/>
+          <h5>Description</h5> <input type="text" onChange={this.handleDescChange} value={image.description}/>
+          <h5>Genre</h5> <input type="text" onChange={this.handleDescChange} value={image.genre}/>
+          
           <button onClick={ () => { onEdit(image) } }  >Submit</button>
+
       </div>
     )
   }

@@ -8,8 +8,10 @@ function MyNav(props) {
       <Navbar.Toggle  aria-controls="basic-navbar-nav"  />
       <Navbar.Collapse  id="basic-navbar-nav">
         <Nav  className="mr-auto">
+        <Link  to="/">Home</Link>
           <Link  to="/album">Portfolio</Link>
           <Link  to="/add-form">Image upload</Link>
+          <Link  to="/purchase">My Purchase</Link>
           {
             props.user ? (
               <button onClick={props.onLogout}>Logout</button>
