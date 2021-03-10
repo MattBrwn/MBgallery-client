@@ -13,6 +13,7 @@ import ImageDetail from "./components/ImageDetail";
 import AddForm from "./components/AddForm";
 import EditForm from "./components/EditForm";
 import MyPurchase from "./pages/MyPurchase";
+import ErrorPage from "./components/ErrorPage";
 // import AllPurchases from "./pages/AllPurchases";
 // import { loadStripe } from "@stripe/stripe-js";
 // import { Elements } from "@stripe/react-stripe-js";
@@ -25,6 +26,7 @@ class App extends Component {
   state = {
     images: [],
     loggedInUser: null,
+    // is_admin: false,
     error: null,
   }
 
@@ -122,11 +124,7 @@ class App extends Component {
   })
 
  }
- 
- 
- 
- 
- 
+  
  handleBuy = (purchase, price) => {
     console.log(purchase)
         //1. Make an API call to the server side Route to create a purchase
@@ -159,12 +157,12 @@ class App extends Component {
     // console.log(image._id)
       .then(() => {
          // 2. Once the server has successfully created a new image, update your state that is visible to the user
-          let filteredImages = this.state.image.filter((image) => {
-            return image._id !== imageId
+          let filteredImages = this.state.images.filter((image) => {
+            return image._id !== imageId 
           })
 
           this.setState({
-            image: filteredImages
+            images: filteredImages
           }, () => {
             this.props.history.push('/album')
           })
@@ -205,7 +203,6 @@ class App extends Component {
     .catch((err) => {
       console.log('Edit failed', err)
     })
-
   }
 
  handleSubmit = (event) => {
@@ -233,7 +230,7 @@ class App extends Component {
             .then((response) => {
                 // 2. Once the server has successfully created a new image, update your state that is visible to the user
                 this.setState({
-                  image: [response.data, ...this.state.image]
+                  image: [response.data, ...this.state.images]
                 }, () => {
                   //3. Once the state is update, redirect the user to the album page
                   this.props.history.push('/album')
@@ -249,6 +246,9 @@ class App extends Component {
       })
     
   }
+  
+
+
 
   render(){
    
@@ -285,6 +285,9 @@ class App extends Component {
             <Route exact path="/purchase" render={(routeProps) => {
                 return <MyPurchase onPurchase={this.handlePurchase}/>
             }} />
+            {/* <Route path="" render={(routeProps) => {
+                return <ErrorPage />
+            }} /> */}
         </Switch>
         <MyFooter />
       </div>

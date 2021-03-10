@@ -11,7 +11,9 @@ class AddForm extends Component {
             <input name="description" type="text" placeholder="Enter description"/>
             <input name="price" type="number" placeholder="Enter price in €"/>
             <input name="imageUrl" type="file" accept="image/png, image/jpg"/>
-            <button type="submit" >Submit</button>
+            <div class="form-group mt-3 mb-4">
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
           </form>
         )
       }

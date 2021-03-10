@@ -22,7 +22,9 @@ function SignUp(props){
                     <p style={{color: 'red'}}>{ props.error.errorMessage}</p>
                 ) : null
             }
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <div class="form-group mt-3 mb-4">
+                <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
         </form>
     )
 }

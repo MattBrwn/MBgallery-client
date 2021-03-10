@@ -5,9 +5,50 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #282d25ff;
+  color: whitesmoke;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.home {
+  text-align: center;
+  background-color: #282d25ff;
+  color: whitesmoke;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.home-1 {
+  text-align: center;
+  background-color: #282d25ff;
+  color: whitesmoke;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  padding-top:5%;
+}
+.album-picture {
+  background-color: #282d25ff;
+  color: whitesmoke;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+.album-decription {
+
+  margin-bottom : 10vh;
+}
+.purchase {
+  display: flex;
+  flex-direction: column;
+  width: 30vh;
 }

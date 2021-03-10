@@ -29,15 +29,27 @@ import config from '../config';
     
     render() {
         const {purchases} = this.state
-        const {images} = this.state
+        // const {images} = this.state
         return (
             <div>
                 <h1>My purchases</h1>
+                
+                
                 {purchases.map(eachPurchase => {
                     return (
-                        <h4>price= {eachPurchase.totalprice} €</h4>
+                        <div >
+                                
+                            <div class = "purchase">
+                           
+                                <img src={eachPurchase.image_id?.imageUrl}/>
+                            </div>
+                                 price= {eachPurchase.totalprice} €
+                        </div>
                     )
                 })}
+                <div class="form-group mt-3 mb-4">
+                    <button type="submit" className="btn btn-primary">Pay Purchase</button>
+                </div>
             </div>
         )
     }

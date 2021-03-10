@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router-dom"
-import {Spinner} from 'react-bootstrap'
 
 function MyAlbum(props) {
 
@@ -8,10 +7,23 @@ function MyAlbum(props) {
   
     return props.images.map(image => {
       return (
-        <div key={image._id}>
-          <img style={{ width: '300px' }} src={image.imageUrl} alt='this image' /> 
-          <Link to={`/album/${image._id}`}><h2>{image.title}</h2></Link>
+        
+        
+          <div key={image._id}>
+            <div class="album-picture">
+            <img  src={image.imageUrl} alt='this image' /> 
+            <div>
+              <Link to={`/album/${image._id}`}><h2>{image.title}</h2></Link>
+              
+              <div class="album-decription">
+              <p>{image.description}</p>
+
+              </div>
+            </div>
+            
+          </div>
         </div>
+        
       );
     });
   };

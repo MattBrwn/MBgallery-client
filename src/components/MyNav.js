@@ -14,7 +14,7 @@ function MyNav(props) {
           <Link  to="/purchase">My Purchase</Link>
           {
             props.user ? (
-              <button onClick={props.onLogout}>Logout</button>
+              <button onClick={props.onLogout} type="button" class="btn btn-light">Logout</button>
             ) : (
               <>
                 <Link  style={{marginLeft: '10px'}}  to="/login">LogIn</Link>

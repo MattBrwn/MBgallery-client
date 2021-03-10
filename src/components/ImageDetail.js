@@ -38,8 +38,8 @@ import {Link, Redirect} from 'react-router-dom'
         </div>
         <div>Description: <br/>
           <p>{image.description}</p></div>
-          <div>Genre:<p>{image.genre}</p></div>
-          <div>Price:<p>{image.price} €</p></div>
+          <div>Album: {image.genre}</div>
+          <div>Price: {image.price} € </div>
         <div>
           <Link to={`/album/${image._id}/edit`}>
             <button>Edit</button>

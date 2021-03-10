@@ -93,10 +93,10 @@ The url to your repository and to your deployed project
 [Repository Link]
 (Server: https://github.com/MattBrwn/MBgallery-server)
 (Client: https://github.com/MattBrwn/MBgallery-client)
-[Deploy Link](https://)
+[Deploy Link](https://https://mb-gallery.herokuapp.com/)
 
 ### Slides
 
 The url to your presentation slides
-[Slides Link]()
+[Slides Link](https://docs.google.com/presentation/d/1AfdVpL4yeZUfp5rkvLb3UGdeSB9IPygEFrvSQWTa460/edit?usp=sharing)
 [wireframes] (https://docs.google.com/drawings/d/1ZySTqDrEnofdon66RXx0IXs5A9igZ0Y0i4nuchIRRd4/edit?usp=sharing)
